@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'upload_receipt_screen.dart';
+import 'upload-receipt-screen.dart';
 
 void main() {
   runApp(const MyApp());
