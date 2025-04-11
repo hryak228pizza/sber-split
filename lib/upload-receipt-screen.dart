@@ -50,16 +50,23 @@ class UploadReceiptScreenState extends State<UploadReceiptScreen> {
                 child: Center(
                   child: GestureDetector(
                     onTap: () async {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Появляется камера')),
-                                  );
                       final pickedFile = await ImagePicker().pickImage(source: ImageSource.camera);
                       if (pickedFile != null) {
+                      final croppedImage = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CropScreen(File(pickedFile.path)),
+                          ),
+                        );
+
+                      if (croppedImage != null) {
                         setState(() {
-                          _receiptImage = File(pickedFile.path);
-                        });
+                          _receiptImage = croppedImage;
+                          });
+                        }
                       }
                     },
+
                     child: _receiptImage != null
                         ? ClipRRect(
                             borderRadius: BorderRadius.circular(20),
